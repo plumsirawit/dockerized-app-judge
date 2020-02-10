@@ -1,5 +1,7 @@
 import git
+from git.exc import GitCommandError
 from pathlib import Path
+from os import mkdir
 import shutil
 
 dirpath = Path('./__submission')
@@ -7,6 +9,9 @@ def clone(url):
     if dirpath.exists() and dirpath.is_dir():
         shutil.rmtree(dirpath)
 
-    # TODO: test for validity of url
+    mkdir(str(dirpath))
 
-    git.Git(str(dirpath.resolve())).clone(url)
+    try:
+        git.Git(str(dirpath.resolve())).clone(url, ['--recursive','.'])
+    except GitCommandError:
+        return 400
