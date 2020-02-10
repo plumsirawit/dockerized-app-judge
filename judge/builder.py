@@ -4,3 +4,4 @@ images = client.images
 
 def build():
     # build image from the cloned directory
+    return None
